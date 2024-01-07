@@ -45,18 +45,10 @@ def run_game(answer, validWords):
         i = 0
         while i < 5:
             if guess[i] == answer[i]:
-<<<<<<< HEAD
                 feedback[guesses][i] = "!"
             elif (letterCounts.get(guess[i]) != None) & (letterCounts.get(guess[i]) != 0):
                 feedback[guesses][i] = "?"
                 letterCounts[guess[i]] -= 1
-=======
-                feedback[i] = "!"
-            
-            # Account for case where a duplicate letter is already in the right place
-            elif guess[i] in answer:
-                feedback[i] = "?"
->>>>>>> 74cc3e01bc84a1af4e7b1df8aaa77622c5d48227
             else:
                 feedback[i] = "x"
             i += 1
