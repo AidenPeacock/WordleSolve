@@ -1,6 +1,6 @@
 import random
 
-# Read set of words from the file into a list
+# Read list of words from the file into a set
 def read_words(filename):
     file = open(filename, "r")
     words = file.readlines()
@@ -9,13 +9,20 @@ def read_words(filename):
     file.close()
     return words
 
+# Select a random word from a set of words
 def select_word(words):
     word = random.choice(list(words))
     return word
 
+
 def run_game(answer, validWords):
     guesses = 0
     feedback = ["", "", "", "", ""]
+
+
+    print("Welcome to Wordle! You have 6 guesses to guess a 5-letter word.")
+    print("x = letter is not in the word, ? = letter is not in the right place, ! = letter is correct and in right place")
+
 
     # x = letter not in word, ? = letter not in right place, ! = right letter in right place
 
