@@ -45,9 +45,9 @@ def run_game(answer, validWords):
         i = 0
         while i < 5:
             if guess[i] == answer[i]:
-                feedback[guesses][i] = "!"
+                feedback[i] = "!"
             elif (letterCounts.get(guess[i]) != None) & (letterCounts.get(guess[i]) != 0):
-                feedback[guesses][i] = "?"
+                feedback[i] = "?"
                 letterCounts[guess[i]] -= 1
             else:
                 feedback[i] = "x"
@@ -62,7 +62,7 @@ def run_game(answer, validWords):
 
 if __name__ == "__main__":
     words = read_words("answerlist.txt")
-    validWords = get_valid_words("wordle_possibles.txt")
+    validWords = get_valid_words("valid-wordle-words.txt")
     answer = select_word(words)
     run_game(answer, validWords)
 
