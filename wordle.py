@@ -19,40 +19,38 @@ def run_game(answer, validWords):
     guesses = 0
     feedback = ["", "", "", "", ""]
 
-
     print("Welcome to Wordle! You have 6 guesses to guess a 5-letter word.")
     print("x = letter is not in the word, ? = letter is not in the right place, ! = letter is correct and in right place")
-
-
-    # x = letter not in word, ? = letter not in right place, ! = right letter in right place
 
     while guesses < 6:
         print("You have " + str(6 - guesses) + " guesses left.")
 
         guess = input("Guess #" + str(guesses + 1) + ": ").lower()
+        # Ensure user enters a valid word
         while guess not in validWords:
             print("Not a valid word. Try Again.")
             guess = input("Guess #" + str(guesses + 1) + ": ").lower()
+
         if guess == answer:
-            print("Nice")
+            print("Nice!")
             break
 
-        letterCounts = {}
+        # Keep track of letters in the answer that have and have not been guessed correctly
+        lettersLeft = {}
         for letter in answer:
-            if letterCounts.get(letter) == None:
-                letterCounts[letter] = 1
+            if lettersLeft.get(letter) == None:
+                lettersLeft[letter] = 1
             else:
-                letterCounts[letter] += 1
-
+                lettersLeft[letter] += 1
 
         i = 0
         while i < 5:
             if guess[i] == answer[i]:
                 feedback[i] = "!"
-                letterCounts[guess[i]] -= 1
-            elif (letterCounts.get(guess[i]) != None) & (letterCounts.get(guess[i]) != 0):
+                lettersLeft[guess[i]] -= 1
+            elif (lettersLeft.get(guess[i]) != None) & (lettersLeft.get(guess[i]) != 0):
                 feedback[i] = "?"
-                letterCounts[guess[i]] -= 1
+                lettersLeft[guess[i]] -= 1
             else:
                 feedback[i] = "x"
             i += 1
