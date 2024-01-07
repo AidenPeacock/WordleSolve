@@ -1,20 +1,16 @@
 import random
 
-# Read list of words from the file into a list
+# Read set of words from the file into a list
 def read_words(filename):
     file = open(filename, "r")
     words = file.readlines()
+    # Remove newline character from each word
+    words = set(map(lambda s : s.strip(), words))
     file.close()
     return words
 
-def get_valid_words(filename):
-    validWords = set()
-    for word in read_words(filename):
-        validWords.add(word.strip())
-    return validWords
-
 def select_word(words):
-    word = random.choice(words).strip()
+    word = random.choice(list(words))
     return word
 
 def run_game(answer, validWords):
@@ -46,6 +42,7 @@ def run_game(answer, validWords):
         while i < 5:
             if guess[i] == answer[i]:
                 feedback[i] = "!"
+                letterCounts[guess[i]] -= 1
             elif (letterCounts.get(guess[i]) != None) & (letterCounts.get(guess[i]) != 0):
                 feedback[i] = "?"
                 letterCounts[guess[i]] -= 1
@@ -62,9 +59,6 @@ def run_game(answer, validWords):
 
 if __name__ == "__main__":
     words = read_words("answerlist.txt")
-    validWords = get_valid_words("valid-wordle-words.txt")
+    validWords = read_words("valid-wordle-words.txt")
     answer = select_word(words)
     run_game(answer, validWords)
-
-
-        
