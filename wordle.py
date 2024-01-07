@@ -20,16 +20,21 @@ def run_game(answer, validWords):
     feedback = ["", "", "", "", ""]
 
     print("Welcome to Wordle! You have 6 guesses to guess a 5-letter word.")
-    print("x = letter is not in the word, ? = letter is not in the right place, ! = letter is correct and in right place")
+    print("x = letter is not in the word, ? = letter is not in the right place, ! = letter is correct and in right place.")
+    print("Enter \"quit\" at any time to concede.")
 
     while guesses < 6:
         print("You have " + str(6 - guesses) + " guesses left.")
 
-        guess = input("Guess #" + str(guesses + 1) + ": ").lower()
         # Ensure user enters a valid word
-        while guess not in validWords:
-            print("Not a valid word. Try Again.")
+        while True:             
             guess = input("Guess #" + str(guesses + 1) + ": ").lower()
+            if (guess in validWords) or (guess == "quit"):
+                break
+            print("Not a valid word. Try Again.")
+        
+        if guess == "quit":
+            break
 
         if guess == answer:
             print("Nice!")
@@ -48,13 +53,21 @@ def run_game(answer, validWords):
             if guess[i] == answer[i]:
                 feedback[i] = "!"
                 lettersLeft[guess[i]] -= 1
-            elif (lettersLeft.get(guess[i]) != None) & (lettersLeft.get(guess[i]) != 0):
+            elif (lettersLeft.get(guess[i]) != None) and (lettersLeft.get(guess[i]) != 0):
                 feedback[i] = "?"
                 lettersLeft[guess[i]] -= 1
             else:
                 feedback[i] = "x"
             i += 1
         
+
+        # hack to fix bug (ex: guessing harsh when answer is flush had the first letter be ? and not x)
+        i = 0
+        while i < 5:
+            if (lettersLeft.get(guess[i]) != None) and (lettersLeft.get(guess[i]) < 0):
+                feedback[i] = "x"
+                lettersLeft[guess[i]] += 1
+            i += 1
 
         print(str(feedback))
         guesses += 1
@@ -66,4 +79,4 @@ if __name__ == "__main__":
     words = read_words("answerlist.txt")
     validWords = read_words("valid-wordle-words.txt")
     answer = select_word(words)
-    run_game(answer, validWords)
+    run_game("loves", validWords)
