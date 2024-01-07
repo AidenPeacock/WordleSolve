@@ -20,7 +20,7 @@ def run_game(answer, validWords):
     feedback = ["", "", "", "", ""]
 
     print("Welcome to Wordle! You have 6 guesses to guess a 5-letter word.")
-    print("x = letter is not in the word, ? = letter is not in the right place, ! = letter is correct and in right place.")
+    print("x = letter is not in the word, ? = letter is in the word but in the wrong place, ! = letter is correct and in right place.")
     print("Enter \"quit\" at any time to concede.")
 
     while guesses < 6:
@@ -79,4 +79,4 @@ if __name__ == "__main__":
     words = read_words("answerlist.txt")
     validWords = read_words("valid-wordle-words.txt")
     answer = select_word(words)
-    run_game("loves", validWords)
+    run_game(answer, validWords)
