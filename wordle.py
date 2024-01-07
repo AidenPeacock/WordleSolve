@@ -13,7 +13,7 @@ def select_word(words):
 
 def run_game(answer):
     guesses = 0
-    feedback = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]]
+    feedback = ["", "", "", "", ""]
 
     # x = letter not in word, ? = letter not in right place, ! = right letter in right place
 
@@ -27,14 +27,17 @@ def run_game(answer):
         i = 0
         while i < 5:
             if guess[i] == answer[i]:
-                feedback[guesses][i] = "!"
+                feedback[i] = "!"
+            
+            # Account for case where a duplicate letter is already in the right place
             elif guess[i] in answer:
-                feedback[guesses][i] = "?"
+                feedback[i] = "?"
             else:
-                feedback[guesses][i] = "x"
+                feedback[i] = "x"
             i += 1
         
-        print(feedback[guesses])
+
+        print(str(feedback))
         guesses += 1
     
     print("The word was " + answer)
